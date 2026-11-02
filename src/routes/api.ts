@@ -15,7 +15,7 @@ import { checkRateLimit } from '../lib/rate-limit';
 export const apiRouter = new Hono<{
   Bindings: {
     DB: D1Database;
-    BUCKET: R2Bucket;
+    BUCKET?: R2Bucket;
     ENVIRONMENT: string;
   };
   Variables: {
@@ -88,13 +88,14 @@ apiRouter.post('/api/certificates', async (c) => {
     return c.json({ error: fileCheck.error || 'Invalid file format' }, 400);
   }
 
-  // Upload to Cloudflare R2
+  // Upload to Cloudflare R2 / D1
   const { fileKey, fileSize } = await uploadCertificateFile(
     c.env.BUCKET,
     user.id,
     buffer,
     fileCheck.contentType as AllowedFileType,
-    fileCheck.extension
+    fileCheck.extension,
+    c.env.DB
   );
 
   // Determine next sortOrder
@@ -177,20 +178,21 @@ apiRouter.post('/api/certificates/:id', async (c) => {
       return c.json({ error: fileCheck.error || 'Invalid file format' }, 400);
     }
 
-    // Delete old file from R2
+    // Delete old file from storage
     try {
-      await deleteCertificateFile(c.env.BUCKET, cert.fileKey);
+      await deleteCertificateFile(c.env.BUCKET, cert.fileKey, c.env.DB);
     } catch (e) {
-      console.warn('Failed to delete old file from R2:', e);
+      console.warn('Failed to delete old file from storage:', e);
     }
 
-    // Upload new file to R2
+    // Upload new file to storage
     const { fileKey, fileSize } = await uploadCertificateFile(
       c.env.BUCKET,
       user.id,
       buffer,
       fileCheck.contentType as AllowedFileType,
-      fileCheck.extension
+      fileCheck.extension,
+      c.env.DB
     );
 
     updates.fileKey = fileKey;
@@ -223,11 +225,11 @@ apiRouter.delete('/api/certificates/:id', async (c) => {
 
   const cert = existing[0];
 
-  // Delete file from R2
+  // Delete file from storage
   try {
-    await deleteCertificateFile(c.env.BUCKET, cert.fileKey);
+    await deleteCertificateFile(c.env.BUCKET, cert.fileKey, c.env.DB);
   } catch (e) {
-    console.warn('Failed to delete file from R2:', e);
+    console.warn('Failed to delete file from storage:', e);
   }
 
   // Delete row from D1

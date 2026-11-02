@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "certfolio",
+  "name": "ursors",
   "main": "src/index.ts",
   "compatibility_date": "2024-11-01",
   "compatibility_flags": [
@@ -10,19 +10,22 @@
     {
       "binding": "DB",
       "database_name": "certfolio-db",
-      "database_id": "xxxx-xxxx-xxxx-xxxx",
+      "database_id": "52e454b9-35bc-4800-8284-0f1fe8c8ac88",
       "migrations_dir": "drizzle"
     }
   ],
-  "r2_buckets": [
-    {
-      "binding": "BUCKET",
-      "bucket_name": "certfolio-bucket"
-    }
-  ],
+  // Cloudflare R2 bucket binding is optional. When enabled in your Cloudflare dashboard,
+  // uncomment the r2_buckets block below. If R2 is not enabled, URSORS automatically
+  // uses Cloudflare D1 for storage (100% free, zero credit card required).
+  // "r2_buckets": [
+  //   {
+  //     "binding": "BUCKET",
+  //     "bucket_name": "certfolio-bucket"
+  //   }
+  // ],
   "vars": {
-    "APP_NAME": "CertFolio",
-    "APP_URL": "http://localhost:8787",
+    "APP_NAME": "URSORS",
+    "APP_URL": "https://ursors.pages.dev",
     "ENVIRONMENT": "development"
   }
 }

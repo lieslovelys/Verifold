@@ -12,7 +12,7 @@ import { renderProfileEditPage } from '../views/pages/profile-edit';
 export const dashboardRouter = new Hono<{
   Bindings: {
     DB: D1Database;
-    BUCKET: R2Bucket;
+    BUCKET?: R2Bucket;
     ENVIRONMENT: string;
     APP_URL: string;
   };
@@ -184,11 +184,11 @@ dashboardRouter.post('/dashboard/account/delete', async (c) => {
   const user = c.get('user');
   const db = getDb(c.env.DB);
 
-  // 1. Delete all user certificate files from R2
+  // 1. Delete all user certificate files from storage
   try {
-    await deleteAllUserFiles(c.env.BUCKET, user.id);
+    await deleteAllUserFiles(c.env.BUCKET, user.id, c.env.DB);
   } catch (err) {
-    console.error('Failed to cleanup R2 files on account deletion:', err);
+    console.error('Failed to cleanup files on account deletion:', err);
   }
 
   // 2. Delete user from D1 (Cascades to certificates, sessions, views, tokens)
