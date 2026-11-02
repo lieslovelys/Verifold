@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "certfolio",
+  "name": "ursors",
   "main": "src/index.ts",
   "compatibility_date": "2024-11-01",
   "compatibility_flags": [
@@ -15,7 +15,7 @@
     }
   ],
   // Cloudflare R2 bucket binding is optional. When enabled in your Cloudflare dashboard,
-  // uncomment the r2_buckets block below. If R2 is not enabled, Verifold automatically
+  // uncomment the r2_buckets block below. If R2 is not enabled, URSORS automatically
   // uses Cloudflare D1 for storage (100% free, zero credit card required).
   // "r2_buckets": [
   //   {
@@ -24,8 +24,8 @@
   //   }
   // ],
   "vars": {
-    "APP_NAME": "CertFolio",
-    "APP_URL": "https://certfolio.esponillaalyssa.workers.dev",
+    "APP_NAME": "URSORS",
+    "APP_URL": "https://ursors.pages.dev",
     "ENVIRONMENT": "development"
   }
 }

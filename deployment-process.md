@@ -275,3 +275,4 @@ $env:XDG_CONFIG_HOME = "D:\Users\espon\Verifold\.config"
 | **Sign-Up & Login Portal** | [https://verifold-bm7.pages.dev/login](https://verifold-bm7.pages.dev/login) |
 | **Database Instance (D1)** | `certfolio-db` (`52e454b9-35bc-4800-8284-0f1fe8c8ac88`) |
 | **Cost Status** | **100% Free Tier ($0.00 / month forever)** |
+

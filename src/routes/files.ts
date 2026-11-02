@@ -41,7 +41,7 @@ function renderFallbackCertificateSvg(title: string, issuer: string, date: strin
   <text x="400" y="275" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="15" font-weight="500" fill="#38bdf8">${esc(issuer)}</text>
   <line x1="260" y1="320" x2="540" y2="320" stroke="#334155" stroke-width="1" />
   <text x="400" y="360" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="13" fill="#64748b">Issued: ${esc(date)}</text>
-  <text x="400" y="415" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="11" font-weight="600" fill="#475569" letter-spacing="2">VERIFOLD AUTHENTICATED CERTIFICATE</text>
+  <text x="400" y="415" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="11" font-weight="600" fill="#475569" letter-spacing="2">URSORS AUTHENTICATED CERTIFICATE</text>
 </svg>`;
 }
 
