@@ -1,0 +1,29 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "certfolio",
+  "main": "src/index.ts",
+  "compatibility_date": "2024-11-01",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "certfolio-db",
+      "database_id": "xxxx-xxxx-xxxx-xxxx",
+      "migrations_dir": "drizzle"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "BUCKET",
+      "bucket_name": "certfolio-bucket"
+    }
+  ],
+  "vars": {
+    "APP_NAME": "CertFolio",
+    "APP_URL": "http://localhost:8787",
+    "ENVIRONMENT": "development"
+  }
+}
+
