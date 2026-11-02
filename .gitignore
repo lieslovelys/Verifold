@@ -2,8 +2,9 @@ node_modules/
 dist/
 .wrangler/
 .config/
+.npm-cache/
+.tmp/
 .dev.vars
 .env
 .DS_Store
 Thumbs.db
-
