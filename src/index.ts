@@ -8,7 +8,7 @@ import { renderNotFoundPage } from './views/pages/not-found';
 
 export interface Env {
   DB: D1Database;
-  BUCKET: R2Bucket;
+  BUCKET?: R2Bucket;
   APP_NAME: string;
   APP_URL: string;
   ENVIRONMENT: string;

@@ -138,7 +138,8 @@ publicRouter.get('/:username', async (c) => {
     )
     .orderBy(asc(certificates.sortOrder), asc(certificates.createdAt));
 
-  const appUrl = c.env.APP_URL || new URL(c.req.url).origin;
+  const origin = new URL(c.req.url).origin;
+  const appUrl = (c.env.APP_URL && !c.env.APP_URL.includes('localhost')) ? c.env.APP_URL : origin;
   const html = renderPortfolioPage({
     user: profileUser,
     certificates: certs,
