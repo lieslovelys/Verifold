@@ -12,36 +12,33 @@ export function renderOnboardingPage(props: OnboardingProps): string {
   const content = `
   ${renderNavbar(null)}
 
-  <main class="flex-1 flex items-center justify-center p-4 py-12">
-    <div class="w-full max-w-lg">
-      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-10 shadow-xl">
+  <main class="flex-1 flex items-center justify-center p-4 py-16">
+    <div class="w-full max-w-sm">
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200/90 dark:border-zinc-800 rounded-2xl p-6 sm:p-7 shadow-card dark:shadow-card-dark">
         
-        <div class="text-center mb-8">
-          <div class="w-14 h-14 mx-auto rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/25 mb-4">
-            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-          </div>
-          <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Claim Your Portfolio URL</h1>
-          <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-2">
-            Pick your unique username. This is the link you will put on your resume and LinkedIn.
+        <div class="text-center mb-6">
+          <h1 class="text-lg font-bold text-zinc-900 dark:text-white tracking-tight">Choose your handle</h1>
+          <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
+            Pick your permanent username for your public portfolio link.
           </p>
         </div>
 
         ${
           props.error
-            ? `<div class="mb-6 p-3.5 rounded-xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-900 text-rose-700 dark:text-rose-300 text-xs font-semibold flex items-center gap-2">
-                 <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            ? `<div class="mb-4 p-3 rounded-lg bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/60 text-rose-700 dark:text-rose-300 text-xs font-medium flex items-center gap-2">
+                 <span>✕</span>
                  <span>${escapeHtml(props.error)}</span>
                </div>`
             : ''
         }
 
-        <form action="/onboarding" method="POST" class="space-y-6">
+        <form action="/onboarding" method="POST" class="space-y-4 text-xs">
           <div>
-            <label for="username" class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">
-              Unique Username
+            <label for="username" class="block text-[11px] font-semibold text-zinc-700 dark:text-zinc-300 mb-1">
+              Username
             </label>
             <div class="relative flex items-center">
-              <span class="absolute left-3.5 text-slate-400 font-medium text-sm select-none">/</span>
+              <span class="absolute left-3 text-zinc-400 font-mono select-none">/</span>
               <input
                 type="text"
                 id="username"
@@ -50,28 +47,28 @@ export function renderOnboardingPage(props: OnboardingProps): string {
                 minlength="3"
                 maxlength="30"
                 pattern="^[a-z0-9]([a-z0-9-]*[a-z0-9])?$"
-                placeholder="yourname"
-                class="w-full pl-8 pr-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-                oninput="this.value = this.value.toLowerCase().replace(/[^a-z0-9-]/g, ''); document.getElementById('preview-url').textContent = this.value || 'yourname';"
+                placeholder="handle"
+                class="w-full pl-6 pr-3 py-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white font-mono text-xs focus:outline-none focus:ring-1 focus:ring-zinc-400 transition"
+                oninput="this.value = this.value.toLowerCase().replace(/[^a-z0-9-]/g, ''); document.getElementById('preview-url').textContent = this.value || 'handle';"
                 autofocus
               />
             </div>
-            <p class="mt-2 text-[11px] text-slate-500 dark:text-slate-400">
-              3-30 chars: lowercase letters, numbers, and hyphens. Cannot start or end with a hyphen.
+            <p class="mt-1 text-[10px] text-zinc-400">
+              3–30 chars: lowercase letters, numbers, hyphens.
             </p>
           </div>
 
-          <!-- Live Preview Box -->
-          <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 flex items-center justify-between gap-2">
-            <span class="text-xs font-medium text-slate-500 dark:text-slate-400">Your public link:</span>
-            <span class="font-mono text-xs font-bold text-blue-600 dark:text-blue-400">
-              certfolio.pages.dev/<span id="preview-url">yourname</span>
+          <!-- Preview Pill -->
+          <div class="p-2.5 rounded-lg bg-zinc-50 dark:bg-zinc-850 border border-zinc-200/80 dark:border-zinc-800 flex items-center justify-between text-[11px]">
+            <span class="text-zinc-400">Preview:</span>
+            <span class="font-mono text-zinc-800 dark:text-zinc-200">
+              certfolio.pages.dev/<span id="preview-url" class="font-semibold text-blue-600 dark:text-blue-400">handle</span>
             </span>
           </div>
 
           <div>
-            <label for="displayName" class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">
-              Full Display Name
+            <label for="displayName" class="block text-[11px] font-semibold text-zinc-700 dark:text-zinc-300 mb-1">
+              Display Name
             </label>
             <input
               type="text"
@@ -80,16 +77,16 @@ export function renderOnboardingPage(props: OnboardingProps): string {
               required
               maxlength="60"
               value="${escapeHtml(props.defaultDisplayName || '')}"
-              placeholder="e.g. Jane Doe"
-              class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+              placeholder="e.g. Alyssa Mae"
+              class="w-full px-3 py-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white text-xs focus:outline-none focus:ring-1 focus:ring-zinc-400 transition"
             />
           </div>
 
           <button
             type="submit"
-            class="w-full py-3.5 px-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-sm shadow-md shadow-blue-500/25 transition duration-150"
+            class="w-full py-2 px-3 bg-zinc-900 hover:bg-zinc-800 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-100 text-white font-semibold rounded-lg text-xs shadow-sm transition mt-2"
           >
-            Confirm & Enter Dashboard
+            Claim Handle & Continue
           </button>
         </form>
       </div>
@@ -100,7 +97,6 @@ export function renderOnboardingPage(props: OnboardingProps): string {
   `;
 
   return baseLayout(content, {
-    title: 'Claim Username | CertFolio',
+    title: 'Claim Handle | CertFolio',
   });
 }
-
